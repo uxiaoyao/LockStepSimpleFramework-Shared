@@ -33,7 +33,7 @@ public class MoveTo : BaseAction {
             actionOver = true;
         }
 
-        FixVector3 elpaseDistance = new FixVector3(m_fixv3MoveDistance.x * timeScale, m_fixv3MoveDistance.y * timeScale, m_fixv3MoveDistance.z * timeScale);
+        FixVector3 elpaseDistance = m_fixv3MoveDistance * timeScale;
         FixVector3 newPosition = new FixVector3(m_fixMoveStartPosition.x + elpaseDistance.x, m_fixMoveStartPosition.y + elpaseDistance.y, m_fixMoveStartPosition.z + elpaseDistance.z);
         unit.m_fixv3LogicPosition = newPosition;
 
@@ -59,6 +59,6 @@ public class MoveTo : BaseAction {
         }
 
         actionCallBackFunction = cb;
-        m_fixv3MoveDistance = new FixVector3(m_fixEndPosition.x - startPos.x, m_fixEndPosition.y - startPos.y, m_fixEndPosition.z - startPos.z);
+        m_fixv3MoveDistance = m_fixEndPosition - startPos;
     }
 }
