@@ -34,7 +34,7 @@ public class MoveTo : BaseAction {
         }
 
         FixVector3 elpaseDistance = m_fixv3MoveDistance * timeScale;
-        FixVector3 newPosition = new FixVector3(m_fixMoveStartPosition.x + elpaseDistance.x, m_fixMoveStartPosition.y + elpaseDistance.y, m_fixMoveStartPosition.z + elpaseDistance.z);
+        FixVector3 newPosition = m_fixMoveStartPosition + elpaseDistance;
         unit.m_fixv3LogicPosition = newPosition;
 
         if (actionOver) {
