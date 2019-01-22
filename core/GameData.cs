@@ -59,6 +59,8 @@ public class GameData {
     {
         public int uGameFrame;
         public string sckeyEvent;
+        public Fix64 x;
+        public Fix64 z;
     }
 
     //- 释放资源

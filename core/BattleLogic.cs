@@ -153,7 +153,7 @@ public class BattleLogic
         TowerStandState.s_scTestContent = "";
 
         //创建塔
-        //createTowers();
+        createTowers();
     }
 
     /// <summary>
@@ -234,6 +234,8 @@ public class BattleLogic
             GameData.battleInfo info = new GameData.battleInfo();
             info.uGameFrame = GameData.g_uGameLogicFrame;
             info.sckeyEvent = "createSoldier";
+            info.x = (Fix64)0;
+            info.z =(Fix64)(-4.0f);
             GameData.g_listUserControlEvent.Add(info);
         } 
     }
@@ -254,16 +256,17 @@ public class BattleLogic
             GameData.battleInfo info = new GameData.battleInfo();
             info.uGameFrame = GameData.g_uGameLogicFrame;
             info.sckeyEvent = "createSoldier";
+            info.x = x;
+            info.z = z;
             GameData.g_listUserControlEvent.Add(info);
         }
     }
 
     public void clickOnGround(Fix64 x, Fix64 z)
     {
-        if(m_bFireWar)
-            createSoldier(x, z);
-        else
-            createTower(x, z);
+        createSoldier(x, z);
+        //else
+            //createTower(x, z);
     }
 
     //- 读取玩家的操作信息
@@ -285,7 +288,8 @@ public class BattleLogic
 
             info.uGameFrame = int.Parse(battleInfo[0]);
             info.sckeyEvent = battleInfo[1];
-
+            info.x = (Fix64)float.Parse(battleInfo[2]);
+            info.z = (Fix64)float.Parse(battleInfo[3]);
             GameData.g_listPlaybackEvent.Add(info);
         }
     }
@@ -303,7 +307,7 @@ public class BattleLogic
 
                 if (gameFrame == v.uGameFrame) {
                     if (v.sckeyEvent == "createSoldier") {
-                        createSoldier();
+                        createSoldier(v.x, v.z);
                     }
                 }
             }
@@ -373,7 +377,7 @@ public class BattleLogic
                 GameData.battleInfo v = GameData.g_listUserControlEvent[i];
                 //出兵
                 if (v.sckeyEvent == "createSoldier") {
-                    content += v.uGameFrame + "," + v.sckeyEvent + "$";
+                    content += v.uGameFrame + "," + v.sckeyEvent +","+ v.x +"," + v.z+ "$";
                 }
             }
 
