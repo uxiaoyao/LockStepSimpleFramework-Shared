@@ -45,7 +45,7 @@ public class DirectionShootBullet : BaseBullet
     {
         m_fixv3LogicPosition = m_fixv3SrcPosition;
 
-        moveTo(m_fixv3SrcPosition, m_fixv3DestPosition, m_fixMoveTime, delegate ()
+        moveTo(m_fixv3SrcPosition, m_fixv3DestPosition, m_fixMoveTime, ()=>
         {
             doShootDest();
         });

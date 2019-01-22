@@ -480,6 +480,12 @@ public struct FixVector3
         this.y = y;
         this.z = z;
     }
+    public FixVector3(float x, float y, float z)
+    {
+        this.x = (Fix64)x;
+        this.y = (Fix64)y;
+        this.z = (Fix64)z;
+    }
 
     public FixVector3(FixVector3 v)
     {

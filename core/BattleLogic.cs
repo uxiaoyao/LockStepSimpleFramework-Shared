@@ -153,7 +153,7 @@ public class BattleLogic
         TowerStandState.s_scTestContent = "";
 
         //创建塔
-        createTowers();
+        //createTowers();
     }
 
     /// <summary>
@@ -206,6 +206,13 @@ public class BattleLogic
         }
     }
 
+    private void createTower(Fix64 x, Fix64 z)
+    {
+        var tower = GameData.g_towerFactory.createTower();
+        tower.m_fixv3LogicPosition = new FixVector3(x, (Fix64)1.3f, z);
+        tower.updateRenderPosition(0);
+    }
+
     /// <summary>
     /// 创建士兵
     /// </summary>
@@ -215,7 +222,7 @@ public class BattleLogic
         m_bFireWar = true;
 
         var soldier = GameData.g_soldierFactory.createSoldier();
-        soldier.m_fixv3LogicPosition = new FixVector3((Fix64)0, (Fix64)1, (Fix64)(-4.0f));
+        soldier.m_fixv3LogicPosition = new FixVector3(0, 1, -4.0f);
         soldier.updateRenderPosition(0);
 
         float moveSpeed = 3 + GameData.g_srand.Range(0, 3);
@@ -229,6 +236,34 @@ public class BattleLogic
             info.sckeyEvent = "createSoldier";
             GameData.g_listUserControlEvent.Add(info);
         } 
+    }
+    public void createSoldier(Fix64 x, Fix64 z)
+    {
+        m_bFireWar = true;
+
+        var soldier = GameData.g_soldierFactory.createSoldier();
+        soldier.m_fixv3LogicPosition = new FixVector3(x, (Fix64)1, z);
+        soldier.updateRenderPosition(0);
+
+        float moveSpeed = 3 + GameData.g_srand.Range(0, 3);
+        soldier.moveTo(soldier.m_fixv3LogicPosition, new FixVector3(soldier.m_fixv3LogicPosition.x, soldier.m_fixv3LogicPosition.y, (Fix64)8), (Fix64)moveSpeed);
+
+        //记录关键事件
+        if (!GameData.g_bRplayMode)
+        {
+            GameData.battleInfo info = new GameData.battleInfo();
+            info.uGameFrame = GameData.g_uGameLogicFrame;
+            info.sckeyEvent = "createSoldier";
+            GameData.g_listUserControlEvent.Add(info);
+        }
+    }
+
+    public void clickOnGround(Fix64 x, Fix64 z)
+    {
+        if(m_bFireWar)
+            createSoldier(x, z);
+        else
+            createTower(x, z);
     }
 
     //- 读取玩家的操作信息
